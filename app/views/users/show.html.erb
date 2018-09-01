@@ -1,0 +1,56 @@
+<h1><%= current_user.name %>'s Profile</h1>
+
+<div class="card-user-profile-button">
+  <a href="<%= new_playlist_path %>" class="card-user-profile-button button hollow"> Create New!</a>
+</div>
+
+<h4>Created:</h4>
+
+<% current_user.playlists.each do |t| %>
+
+
+  <% if t.creater_id == current_user.id %>
+  <div class="box">
+  <p class="card-user-profile-name"> <span style="font-weight:bold"> Name: </span> <%= t.name %> </p>
+  <p class="card-user-profile-name"> <span style="font-weight:bold"> Description: </span> <%= t.description %> </p>
+  <p class="card-user-profile-name">
+    <span style="font-weight:bold"> Word Preview: </span>
+    <div style="height:120px;width:290px;border:1px solid #ccc;overflow:auto;">
+    <% t.words.each do |a| %>
+    <p class= "tab">
+      <%= a %> <br/>
+      </p>
+    <% end %>
+  </div>
+  </p>
+  <div class="card-user-profile-button">
+    <a href="<%= edit_playlist_path(t.id) %>" class="card-user-profile-button button hollow"> Edit Playlist</a>
+    <a href="<%= playlist_path(t.id) %>" class="card-user-profile-button button hollow"> View</a>
+</div>
+
+</div>
+  <% end %>
+<% end %>
+
+<h4>Adopted:</h4>
+<% current_user.playlists.each do |t| %>
+
+  <% if t.creater_id != current_user.id %>
+  <div class="box">
+  <p class="card-user-profile-name"> <span style="font-weight:bold"> Name: </span> <%= t.name %> </p>
+  <p class="card-user-profile-name"> <span style="font-weight:bold"> Description: </span> <%= t.description %> </p>
+  <p class="card-user-profile-name">
+    <span style="font-weight:bold"> Word Preview: </span>
+    <div style="height:120px;width:290px;border:1px solid #ccc;overflow:auto;">
+    <% t.words.each do |a| %>
+    <p class= "tab">
+      <%= a %> <br/>
+      </p>
+    <% end %>
+  </div>
+  </p>
+  <a href="<%= playlist_path(t.id) %>" class="card-user-profile-button button hollow"> View</a>
+  </div>
+  <% end %>
+
+<% end %>
